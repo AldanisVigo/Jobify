@@ -16,7 +16,9 @@ const AddJob = () => {
         isEditing,
         handleChange,
         clearValues,
-        user
+        user,
+        isLoading,
+        createJob
     } = useAppContext()
     
     const handleJobInput = e => {
@@ -36,7 +38,14 @@ const AddJob = () => {
             return
         }
 
+        if(isEditing){
+            //eventually editJob()
+
+            return
+        }
+
         console.log("Create Job")
+        createJob()
     }
 
     return <Wrapper>
@@ -81,7 +90,7 @@ const AddJob = () => {
                 />
 
                 <div className="btn-container">
-                    <button type="submit" className="btn btn-block submit-btn">
+                    <button type="submit" className="btn btn-block submit-btn" disabled={isLoading} onClick={handleSubmit}>
                         Submit
                     </button>
                     <button className="btn btn-block clear-btn" onClick={(e)=>{
