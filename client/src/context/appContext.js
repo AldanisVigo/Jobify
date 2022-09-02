@@ -1,4 +1,4 @@
-import React, {useContext, useReducer } from 'react'
+import React, {useContext, useReducer, useEffect } from 'react'
 import reducer from './reducer'
 import { 
     DISPLAY_ALERT, 
@@ -18,7 +18,10 @@ import {
     CLEAR_VALUES,
     CREATE_JOB_BEGIN,
     CREATE_JOB_SUCCESS,
-    CREATE_JOB_ERROR
+    CREATE_JOB_ERROR,
+    GET_JOBS_BEGIN,
+    GET_JOBS_SUCCESS,
+    // GET_JOBS_ERROR
 } from './actions'
 import axios from 'axios'
 
@@ -51,7 +54,11 @@ const initialState = {
         'declined',
         'pending'
     ],
-    status : 'pending'
+    status : 'pending',
+    jobs : [],
+    totalJobs : 0,
+    numPages : 1,
+    page : 1
 }
 
 const AppContext = React.createContext()
@@ -282,7 +289,61 @@ const AppProvider = ({children}) => {
         clearAlert()
     }
 
-    return <AppContext.Provider value={{...state, displayAlert,registerUser, loginUser,toggleSidebar,logoutUser,updateUser, handleChange,clearValues, createJob}}>
+    const getJobs = async () => {
+        let url = '/jobs'
+
+        dispatch({
+            type : GET_JOBS_BEGIN
+        })
+
+        try{
+            const { data } = await authFetch(url)
+            const {jobs, totalJobs, numPages } = data
+
+            dispatch({
+                type : GET_JOBS_SUCCESS,
+                payload : {
+                    jobs,
+                    totalJobs,
+                    numPages
+                }
+            })
+        }catch(err){
+            console.error(err.response)
+            // logoutUser()
+        }
+        //If there are any alerts showing, hide them
+        clearAlert()
+    }
+
+
+    // useEffect(()=>{
+    //     getJobs()
+    // },[getJobs])
+
+    const setEditJob = (id) => {
+        console.log(`set edit job : ${id}`)
+    }
+
+    const deleteJob = (id) => {
+        console.log(`delete job ${id}`)
+    }
+
+    return <AppContext.Provider value={{
+        ...state,
+        displayAlert,
+        registerUser, 
+        loginUser,
+        toggleSidebar,
+        logoutUser,
+        updateUser, 
+        handleChange,
+        clearValues, 
+        createJob,
+        getJobs,
+        setEditJob,
+        deleteJob
+    }}>
         {children}
     </AppContext.Provider>
 }
