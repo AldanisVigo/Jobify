@@ -10,8 +10,8 @@ const App = () => <BrowserRouter>
       </ProtectedRoute>
     }>
       <Route index element={<Stats/>}></Route>
-      <Route path="all-events" element={<AllEvents/>}></Route>
-      <Route path="add-event" element={<AddEvent/>}></Route>
+      <Route path="all-jobs" element={<AllEvents/>}></Route>
+      <Route path="add-job" element={<AddEvent/>}></Route>
       <Route path="profile" element={<Profile/>}></Route>
     </Route>
     <Route path="/register" element={<Register/>}></Route>

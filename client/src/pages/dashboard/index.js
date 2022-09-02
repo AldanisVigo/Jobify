@@ -1,5 +1,5 @@
-import AllEvents from "./AllEvents"
-import AddEvent from "./AddEvent"
+import AllEvents from "./AllJobs"
+import AddEvent from "./AddJob"
 import Profile from "./Profile"
 import SharedLayout from "./SharedLayout"
 import Stats from './Stats'

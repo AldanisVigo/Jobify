@@ -60,7 +60,7 @@ const login = async (req,res,next) => {
     res.status(StatusCodes.OK).json({
         user,
         token,
-        location : user.location
+        location : user.userLocation
     })
 }
 
