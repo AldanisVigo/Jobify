@@ -7,6 +7,12 @@ import SmallSidebar from "./smallsidebar"
 import FormRowSelect from "./formrowselect"
 import SearchContainer from "./searchcontainer"
 import JobsContainer from "./jobscontainer"
+import StatsContainer from "./statscontainer"
+import ChartsContainer from "./chartscontainer"
+import Loading from "./loading"
+import AreaChart from "./areachart"
+import BarChart from "./barchart"
+
 export { 
     Logo, 
     FormRow, 
@@ -16,5 +22,10 @@ export {
     SmallSidebar, 
     FormRowSelect, 
     SearchContainer, 
-    JobsContainer 
+    JobsContainer,
+    StatsContainer,
+    ChartsContainer,
+    Loading,
+    BarChart,
+    AreaChart
 }
