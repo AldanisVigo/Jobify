@@ -14,10 +14,10 @@ const Profile = () => {
         e.preventDefault()
 
         //remove while testing
-        // if(!name || !email || !lastName || !location){
-        //     displayAlert()
-        //     return
-        // }
+        if(!name || !email || !lastName || !location){
+            displayAlert()
+            return
+        }
 
         // console.log("update user")
         updateUser({

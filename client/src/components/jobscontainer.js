@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import Loading from './loading'
 import Job from "./job"
 import Wrapper from '../assets/wrappers/JobsContainer'
+import PageBtnContainer from "./pagebtncontainer"
 
 const JobsContainer = () => {
     const { 
@@ -14,13 +15,15 @@ const JobsContainer = () => {
         search,
         searchStatus,
         searchType,
-        sort
+        sort,
+        numPages
     } = useAppContext()
 
 
     useEffect(()=>{
         getJobs()
-    },[search, searchStatus, searchType, sort])
+        // eslint-disable-next-line
+    },[search, searchStatus, searchType, sort, page])
 
     if(isLoading){
         return <div>
@@ -41,6 +44,7 @@ const JobsContainer = () => {
         </div>
 
         {/* pagination buttons */}
+        {numPages > 1 && <PageBtnContainer/>}
     </Wrapper>
 }
 

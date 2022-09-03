@@ -1,4 +1,4 @@
-import React, {useContext, useReducer, useEffect } from 'react'
+import React, {useContext, useReducer } from 'react'
 import reducer from './reducer'
 import { 
     DISPLAY_ALERT, 
@@ -29,7 +29,8 @@ import {
     EDIT_JOB_ERROR,
     SHOW_STATS_BEGIN,
     SHOW_STATS_SUCCESS,
-    CLEAR_FILTERS
+    CLEAR_FILTERS,
+    CHANGE_PAGE
 } from './actions'
 import axios from 'axios'
 
@@ -305,8 +306,8 @@ const AppProvider = ({children}) => {
     }
 
     const getJobs = async () => {
-        const { search, searchStatus, searchType, sort } = state
-        let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}`
+        const { search, searchStatus, searchType, sort, page } = state
+        let url = `/jobs?page=${page}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`
 
         if(search){
             url = url + `&search=${search}`
@@ -330,7 +331,7 @@ const AppProvider = ({children}) => {
             })
         }catch(err){
             console.error(err.response)
-            // logoutUser()
+            logoutUser()
         }
         //If there are any alerts showing, hide them
         clearAlert()
@@ -407,7 +408,7 @@ const AppProvider = ({children}) => {
             getJobs()
         }catch(err){
             console.error(err.response)
-            // logoutUser()
+            logoutUser()
         }
     }
 
@@ -427,7 +428,7 @@ const AppProvider = ({children}) => {
             })
         }catch(err){
             console.error(err.response)
-            logoutUser();
+            logoutUser()
         }
     }
 
@@ -435,6 +436,15 @@ const AppProvider = ({children}) => {
         console.log("clear filters")
         dispatch({
             type : CLEAR_FILTERS
+        })
+    }
+
+    const changePage = (page) => {
+        dispatch({
+            type : CHANGE_PAGE,
+            payload: {
+                page : page
+            }
         })
     }
 
@@ -454,7 +464,8 @@ const AppProvider = ({children}) => {
         deleteJob,
         editJob,
         showStats,
-        clearFilters
+        clearFilters,
+        changePage
     }}>
         {children}
     </AppContext.Provider>
